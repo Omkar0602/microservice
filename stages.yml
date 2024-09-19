@@ -23,6 +23,7 @@ stages:
       displayName: 'Run Second Job'
 
 - stage: DevDeploy
+  dependsOn: Build
   jobs:
   - job: DevDeploymentJob
     steps:
@@ -30,6 +31,7 @@ stages:
       displayName: 'Run Dev Deploy'
 
 - stage: QADeploy
+  dependsOn: DevDeploy
   jobs:
   - job: QADeploymentJob
     steps:
@@ -37,6 +39,7 @@ stages:
       displayName: 'Run QA Deploy'
 
 - stage: ProdDeploy
+  dependsOn: QADeploy
   jobs:
   - job: ProdDeploymentJob
     steps:
