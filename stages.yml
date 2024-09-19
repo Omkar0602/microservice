@@ -7,22 +7,38 @@ trigger:
 - master
 
 pool:
-vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 stages:
-- stage:build
-jobs:
-- job: FirstJob
-  steps:
-  - bash: echo Build FirstJob
-- job: SecondJob
-  steps:
-  - bash:echo BuildSecondJob
+- stage: Build
+  jobs:
+  - job: FirstJob
+    steps:
+    - bash: echo Build FirstJob
+      displayName: 'Run First Job'
+      
+  - job: SecondJob
+    steps:
+    - bash: echo Build Second Job
+      displayName: 'Run Second Job'
+
 - stage: DevDeploy
+  jobs:
+  - job: DevDeploymentJob
+    steps:
+    - script: echo Deploying to Development
+      displayName: 'Run Dev Deploy'
+
 - stage: QADeploy
+  jobs:
+  - job: QADeploymentJob
+    steps:
+    - script: echo Deploying to QA
+      displayName: 'Run QA Deploy'
+
 - stage: ProdDeploy
-
-steps:
-- script: echo job1 step 1!
-displayName: 'Run a one-line script'
-
+  jobs:
+  - job: ProdDeploymentJob
+    steps:
+    - script: echo Deploying to Production
+      displayName: 'Run Prod Deploy'
